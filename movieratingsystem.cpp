@@ -77,7 +77,7 @@ public:
     {
         string st;
         ifstream in;
-        in.open("movies.txt"); // this you have to create by your own and you can write the movies name which have to rate.
+        in.open("movies.txt"); // this you have to create by your own and you can write the movies name which have to be rate.
         while (in.eof() == 0)
         {
             getline(in, st);
@@ -88,7 +88,7 @@ public:
     {
         string st1;
         ifstream in;
-        in.open("movies1.txt"); // this you have to create by your own and you can write the movies name which have to rate.
+        in.open("movies1.txt"); // this you have to create by your own and you can write the movies name which have to be rate.
         while (in.eof() == 0)
         {
             getline(in, st1);
@@ -99,7 +99,7 @@ public:
     {
         string st2;
         ifstream in;
-        in.open("movies2.txt"); // this you have to create by your own and you can write the movies name which have to rate.
+        in.open("movies2.txt"); // this you have to create by your own and you can write the movies name which have to be rate.
         while (in.eof() == 0)
         {
             getline(in, st2);
@@ -117,37 +117,37 @@ public:
             cout << st3 << endl;
         }
     }
-    int displayrating(double *d, int *r) // This will display rating that user have rated
+    void displayrating(double *ratings, int *ratingsCount, const string movieNames[])
     {
-
+        for (int i = 1; i <= 5; i++)
         {
-
-            for (int i = 1; i < 6; i++)
+            if (ratingsCount[i] > 0)
             {
-                int b = d[i] / r[i];
-                if (b > 0) // as it showing nan when movies were not rated, to remove this ambiguity we use if else condition.
-                {
-                    cout << "movie" << i << " = " << d[i] / r[i] << endl; // to print average of ratings  total no. of ratings/total no. of users vote.
-                }
-                else
-                {
-                    cout << "movie" << i << "= "
-                         << "Movie not rate yet" << endl;
-                }
-                cout << endl;
+                cout << movieNames[i] << " = " << ratings[i] / ratingsCount[i] << endl;
+            }
+            else
+            {
+                cout << movieNames[i] << " = No ratings yet.\n";
             }
         }
+        cout << endl;
     }
 };
 
 int main()
 {
+
     char zx;
     user Me;
+    const string comedyMovies[6] = {"", "Barfi", "Chennai Express", "Golmaal", "Here Pheri", "PK"};
+    const string actionMovies[6] = {"", "Bloody Daddy", "Extraction", "Vikram Vedha", "URI", "WAR"};
+    const string romanticMovies[6] = {"", "Sanam Teri Kasam", "Dilwale Dulhania Le Jayenge", "Goliyon ki Raasleela Ram-Leela", "Dil Bechara", "Rockstar"};
+    const string horrorMovies[6] = {"", "Pari", "Bhool Bhulaiya", "The Nun", "The Devil Inside", "Conjuring"};
+
     while (1)
     {
-        start:
-        printf("Enter Choice L to Login S to Signup and E to Exit\n");
+    start:
+        printf("Enter Choice\nL.Login\nS.Signup\nE.Exit\n");
         scanf("%s", &zx);
         switch (zx)
         {
@@ -197,27 +197,26 @@ int main()
                         break;
                     case 'R':
                         cout << "---------------------------------------------------Here are the movies ratings-------------------------------------------------\n";
+                        cout << "COMEDY\n";
+                        a.displayrating(o1, r1, comedyMovies);
+                        cout << "ACTION\n";
+                        a.displayrating(o2, r2, actionMovies);
+                        cout << "ROMANTIC\n";
+                        a.displayrating(o3, r3, romanticMovies);
+                        cout << "HORROR\n";
+                        a.displayrating(o4, r4, horrorMovies);
 
-                        cout << "COMEDY" << endl;
-                        a.displayrating(o1, r1);
-                        cout << "ACTION" << endl;
-                        a.displayrating(o2, r2);
-                        cout << "ROMANTIC" << endl;
-                        a.displayrating(o3, r3);
-                        cout << "HORROR" << endl;
-                        a.displayrating(o4, r4);
-                        return 0;
                         break;
                     case 'E':
                         cout << "Exiting the Movie Rating System. Goodbye!\n";
-                       goto start;
+                        goto start;
                     default:
                         cout << "Invalid choice !" << endl;
                     }
                 }
             }
             break;
-            case 'E':
+        case 'E':
             return 0;
         }
     }
